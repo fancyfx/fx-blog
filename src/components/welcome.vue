@@ -1,25 +1,25 @@
 <template>
-  <div class="hello">
+  <div class="hello" v-bind:class="{ home_hellp: toHomeStyle.isHome }">
     <div class="logo mar_bot">
       <img src="../assets/fancyxi.png">
     </div>
-    <div class="title mar_bot">
-      <h1>{{ msg }}</h1>
+    <div class="title">
+      <h1>{{ welMsg.title }}</h1>
+    </div>
+    <hr class="panel-cover__divider">
+    <div class="title_description mar_bot" v-bind:class="{ home_title_description: toHomeStyle.isHome }">
+      <p>{{ welMsg.description }}</p>
     </div>
     
-    <div class="title_description mar_bot">
-      <h2>hi，你好！我是方希(@fancyxi).</h2>
-    </div>
-    
-    <div class="link_button mar_bot">
+    <div class="link_button ">
         <ul>
-          <li><a href="#" target="_blank">博客</a></li>
+          <li><a href="" target="_blank" v-on:click.stop.prevent="toHomeStyle.isHome = !toHomeStyle.isHome">博客</a></li>
           <li><a href="#" target="_blank">记事本</a></li>
           <li><a href="#" target="_blank">项目</a></li>
           <li><a href="#" target="_blank">关于</a></li>
         </ul>
     </div>
-    <div class="link_icon mar_bot">
+    <div class="link_icon ">
       <ul>
         <li><a href="#" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
         <li><a href="#" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
@@ -35,8 +35,19 @@ export default {
   name: 'hello',
   data() {
     return {
-      msg: "Fancyxi's Blog",
+      welMsg: {
+        title: "Fancyxi's Blog",
+        description: 'Hi，你好！我是方希(@fancyxi),是一名前端开发者！现在工作生活于武汉。我对后端开发也比较熟悉，写过nodejs、php、java等。由于工作的经历，我对HTTP协议和WEB安全有一定研究.',
+      },
+      toHomeStyle: {
+        isHome: false,
+      },
     };
+  },
+  methods: {
+    toHome() {
+      this.toHomeStyle.isHome = !this.toHomeStyle.isHome;
+    },
   },
 };
 </script>
@@ -91,14 +102,36 @@ a {
 }
 .fa {
   font-size: 28px;  
-}
-.mar_bot {
-  margin-bottom: 20px;
+  color: #333333;
 }
 .link_button{
   margin-top: 20px;
+  margin-bottom: 40px;
 }
 .link_icon{
   margin-top: 20px;
 }
+.title_description{
+  text-align: center;
+  width: 600px;
+  margin-bottom: 40px;
+}
+.home_title_description{
+  width: 80%;
+}
+.title_description>p {
+  font-size: 18px;
+  line-height: 30px;
+}
+.panel-cover__divider{
+    width: 20%;
+    margin: 20px auto;
+    border-top: 1px solid #bbb;
+  }
+  .hello {
+    background-color: #eee;
+  }
+  .home_hellp {
+    width: 30%;
+  }
 </style>

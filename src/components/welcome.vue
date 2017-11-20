@@ -1,5 +1,5 @@
 <template>
-  <div class="hello" v-bind:class="{ home_hellp: toHomeStyle.isHome }">
+  <div class="hello" v-bind:class="toHomeCSSObj">
     <div class="logo mar_bot">
       <img src="../assets/fancyxi.png">
     </div>
@@ -8,10 +8,10 @@
     </div>
     <hr class="panel-cover__divider">
     <div class="title_description mar_bot" v-bind:class="{ home_title_description: toHomeStyle.isHome }">
-      <p>{{ welMsg.description }}</p>
+      <p v-bind:class="showWelMsg">{{ welMsg.description }}</p>
     </div>
     
-    <div class="link_button ">
+    <div class="link_button " >
         <ul>
           <li><a href="" target="_blank" v-on:click.stop.prevent="toHomeStyle.isHome = !toHomeStyle.isHome">博客</a></li>
           <li><a href="#" target="_blank">记事本</a></li>
@@ -49,12 +49,27 @@ export default {
       this.toHomeStyle.isHome = !this.toHomeStyle.isHome;
     },
   },
+  computed: {
+    toHomeCSSObj() {
+      return {
+        home_hellp: this.toHomeStyle.isHome,
+        animated: this.toHomeStyle.isHome,
+      };
+    },
+    showWelMsg() {
+      return {
+        bounceInDown: this.toHomeStyle.isHome,
+        animated_2s: this.toHomeStyle.isHome,
+      };
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 @import "~font-awesome/css/font-awesome.min.css";
+@import "~animate.css/animate.min.css";
 h1, h2 {
   font-weight: normal;
 }
@@ -127,11 +142,27 @@ a {
     width: 20%;
     margin: 20px auto;
     border-top: 1px solid #bbb;
+}
+.hello {
+  background-color: #eee;
+}
+.home_hellp {
+  animation-name: toLeft;
+}
+
+@keyframes toLeft {
+  from {
+    width: 100%;
   }
-  .hello {
-    background-color: #eee;
-  }
-  .home_hellp {
+
+  to {
     width: 30%;
   }
+}
+
+.animated_2s {
+  animation-delay: 1s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
 </style>
